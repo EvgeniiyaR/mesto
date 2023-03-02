@@ -1,0 +1,29 @@
+.popup__exit-button {
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  z-index: 2;
+  top: -12%;
+  right: -10%;
+  background-image: url(../../../images/exit.svg);
+  background-color: transparent;
+  border: none;
+  background-size: 32px 32px;
+  transition: background-image .3s;
+}
+
+.popup__exit-button:hover {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0zMiAyOC44TDE5LjIgMTZMMzIgMy4yTDI4LjggMEwxNiAxMi44TDMuMiAwTDAgMy4yTDEyLjggMTZMMCAyOC44TDMuMiAzMkwxNiAxOS4yTDI4LjggMzJMMzIgMjguOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuNiIvPg0KPC9zdmc+DQo=");
+}
+
+@media screen and (max-width: 1279px) {
+  .popup__exit-button {
+    top: -12%;
+    right: 0;
+    width: calc(20px + (32 - 20) * (100vw - 320px) / (1279 - 320));
+    height: calc(20px + (32 - 20) * (100vw - 320px) / (1279 - 320));
+    background-size: calc(20px + (32 - 20) * (100vw - 320px) / (1279 - 320)) calc(20px + (32 - 20) * (100vw - 320px) / (1279 - 320));
+  }
+}

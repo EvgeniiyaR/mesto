@@ -2,6 +2,7 @@ let body = document.querySelector('.body');
 let profileEditButton = body.querySelector('.profile__edit-button');
 let popup = body.querySelector('.popup');
 
+
 profileEditButton.addEventListener('click', function() {
   popup.classList.add('popup_opened');
 })
