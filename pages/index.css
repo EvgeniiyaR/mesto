@@ -86,11 +86,13 @@
   border: 1px solid #FFFFFF;
   align-self: end;
   margin-bottom: 9px;
+  transition: border-color .3s,
+              background-image .3s;
 }
 
 .profile__edit-button:hover {
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xMCAxLjMyODI3TDIuNjAzNzcgOC43NjY2TDEuMjgzMDIgNy40MTkzNkw4LjY2MDM4IDBMMTAgMS4zMjgyN1pNMCAxMEwxLjk2MjI2IDkuNDExNzdMMC41ODQ5MDYgOC4wODM0OUwwIDEwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC42Ii8+DQo8L3N2Zz4NCg==");
 }
 
@@ -105,11 +107,13 @@
   background-position: center center;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
+  transition: border-color .3s,
+              background-image .3s;
 }
 
 .profile__add-button:hover {
   cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
   background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0yMiA5Ljc3Nzc4SDEyLjIyMjJWMEg5Ljc3Nzc4VjkuNzc3NzhIMFYxMi4yMjIySDkuNzc3NzhWMjJIMTIuMjIyMlYxMi4yMjIySDIyVjkuNzc3NzhaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjYiLz4NCjwvc3ZnPg0K");
 }
 
@@ -171,6 +175,7 @@
   justify-self: end;
   background-image: url(../images/like.svg);
   background-color: white;
+  transition: background-image .3s;
 }
 
 .elements__like-button:hover {
@@ -241,6 +246,7 @@
   background-color: transparent;
   border: none;
   background-size: 32px 32px;
+  transition: background-image .3s;
 }
 
 .popup__exit-button:hover {
@@ -279,6 +285,7 @@
   font-size: 18px;
   line-height: 1.22;
   border-radius: 2px;
+  transition: background-color .3s;
 }
 
 .popup__save-button:hover {
