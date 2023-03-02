@@ -61,6 +61,7 @@
   font-weight: 500;
   font-size: 42px;
   line-height: 1.14;
+  align-self: end;
 }
 
 .profile__about {
@@ -69,6 +70,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.21;
+  align-self: start;
 }
 
 .profile__edit-button {
@@ -81,6 +83,8 @@
   height: 24px;
   background-position: center center;
   border: 1px solid #FFFFFF;
+  align-self: end;
+  margin-bottom: 9px;
 }
 
 .profile__add-button {
@@ -103,7 +107,8 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, 282px);
-  gap: 17px;
+  column-gap: 17px;
+  row-gap: 20px;
   justify-content: center;
 }
 
@@ -153,6 +158,20 @@
   background-color: white;
 }
 
+.footer {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.footer__copyright {
+  margin: 0;
+  color: #545454;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.21;
+  padding: 66px 0 56px 0;
+}
+
 @media screen and (max-width: 1279px) {
   .page {
     padding-top: calc(28px + (45 - 28) * (100vw - 320px) / (1279 - 320));
@@ -196,7 +215,22 @@
     font-size: calc(14px + (18 - 14) * (100vw - 320px) / (1279 - 320));
   }
 
+  .profile__edit-button {
+    width: calc(18px + (24 - 18) * (100vw - 320px) / (1279 - 320));
+    height: calc(18px + (24 - 18) * (100vw - 320px) / (1279 - 320));
+    margin-bottom: 5px;
+  }
+
   .profile__add-button {
     width: calc(282px + (150 - 282) * (100vw - 320px) / (1279 - 320));
+  }
+
+  .footer {
+    max-width: calc(282px + (880 - 282) * (100vw - 320px) / (1279 - 320));
+  }
+
+  .footer__copyright {
+    padding: calc(48px + (66 - 48) * (100vw - 320px) / (1279 - 320)) 0 calc(33px + (56 - 33) * (100vw - 320px) / (1279 - 320)) 0;
+    font-size: calc(14px + (18 - 14) * (100vw - 320px) / (1279 - 320));
   }
 }
