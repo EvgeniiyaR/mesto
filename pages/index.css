@@ -88,6 +88,12 @@
   margin-bottom: 9px;
 }
 
+.profile__edit-button:hover {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xMCAxLjMyODI3TDIuNjAzNzcgOC43NjY2TDEuMjgzMDIgNy40MTkzNkw4LjY2MDM4IDBMMTAgMS4zMjgyN1pNMCAxMEwxLjk2MjI2IDkuNDExNzdMMC41ODQ5MDYgOC4wODM0OUwwIDEwWiIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC42Ii8+DQo8L3N2Zz4NCg==");
+}
+
 .profile__add-button {
   padding: 0;
   box-sizing: border-box;
@@ -99,6 +105,12 @@
   background-position: center center;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
+}
+
+.profile__add-button:hover {
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0yMiA5Ljc3Nzc4SDEyLjIyMjJWMEg5Ljc3Nzc4VjkuNzc3NzhIMFYxMi4yMjIySDkuNzc3NzhWMjJIMTIuMjIyMlYxMi4yMjIySDIyVjkuNzc3NzhaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjYiLz4NCjwvc3ZnPg0K");
 }
 
 .elements__list {
@@ -161,6 +173,15 @@
   background-color: white;
 }
 
+.elements__like-button:hover {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMTkiIHZpZXdCb3g9IjAgMCAyMiAxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0yMC4yOTkxIDkuNzg1ODZDMjIuNTY3IDcuNTQzMzggMjIuNTY3IDMuOTAyMTMgMjAuMjk5MSAxLjY4MTg2QzE4LjAzMTEgLTAuNTYwNjE5IDE0LjM0ODYgLTAuNTYwNjE5IDEyLjA4MDYgMS42ODE4NkwxMC45ODA0IDIuNzkyTDkuODgwMDcgMS43MDQwNkM3LjYxMjE1IC0wLjU2MDYxOSAzLjkyOTU3IC0wLjU2MDYxOSAxLjY4NDEgMS42ODE4NkMwLjU4MzgyMiAyLjc2OTc5IDAgNC4yMTI5NyAwIDUuNzQ0OTZDMCA3LjI3Njk1IDAuNjA2Mjc3IDguNzIwMTMgMS42ODQxIDkuODA4MDZMMTAuOTgwNCAxOUwyMC4yOTkxIDkuNzg1ODZaTTEuNDM3MSA1Ljc0NDk2QzEuNDM3MSA0LjU5MDQyIDEuODg2MiAzLjUyNDY5IDIuNzE3MDIgMi43MjUzOUMzLjU3MDMgMS44ODE2OCA0LjY3MDU4IDEuNDU5ODMgNS43NzA4NiAxLjQ1OTgzQzYuODcxMTQgMS40NTk4MyA3Ljk3MTQyIDEuODgxNjggOC44MjQ3IDIuNzI1MzlMMTAuOTgwNCA0LjgzNDY1TDEzLjEzNiAyLjcwMzE4QzE0LjgyMDEgMS4wMzc5OCAxNy41ODIgMS4wMzc5OCAxOS4yNDM3IDIuNzAzMThDMjAuMDUyMSAzLjUwMjQ4IDIwLjUyMzYgNC41NjgyMSAyMC41MjM2IDUuNzIyNzZDMjAuNTIzNiA2Ljg3NzMgMjAuMDc0NSA3Ljk0MzAzIDE5LjI0MzcgOC43NDIzM0wxMC45ODA0IDE2LjkzNTFMMi43MTcwMiA4Ljc2NDUzQzEuOTA4NjUgNy45NDMwMyAxLjQzNzEgNi44NzczIDEuNDM3MSA1Ljc0NDk2WiIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC41Ii8+DQo8L3N2Zz4NCg==");
+}
+
+.elements__like-button_active {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMTkiIHZpZXdCb3g9IjAgMCAyMiAxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0yMC4yOTkxIDkuNzg1ODZDMjIuNTY3IDcuNTQzMzggMjIuNTY3IDMuOTAyMTMgMjAuMjk5MSAxLjY4MTg2QzE4LjAzMTEgLTAuNTYwNjE5IDE0LjM0ODYgLTAuNTYwNjE5IDEyLjA4MDYgMS42ODE4NkwxMC45ODA0IDIuNzkyTDkuODgwMDcgMS43MDQwNkM3LjYxMjE1IC0wLjU2MDYxOSAzLjkyOTU3IC0wLjU2MDYxOSAxLjY4NDEgMS42ODE4NkMwLjU4MzgyMiAyLjc2OTc5IDAgNC4yMTI5NyAwIDUuNzQ0OTZDMCA3LjI3Njk1IDAuNjA2Mjc3IDguNzIwMTMgMS42ODQxIDkuODA4MDZMMTAuOTgwNCAxOUwyMC4yOTkxIDkuNzg1ODZaIiBmaWxsPSJibGFjayIvPg0KPC9zdmc+DQo=");
+}
+
 .footer {
   max-width: 880px;
   margin: 0 auto;
@@ -176,7 +197,7 @@
 }
 
 .popup {
-  /* display: none; */
+  display: none;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   z-index: 1;
@@ -184,6 +205,10 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.popup_opened {
+  display: block;
 }
 
 .popup__container {
@@ -218,6 +243,11 @@
   background-size: 32px 32px;
 }
 
+.popup__exit-button:hover {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0zMiAyOC44TDE5LjIgMTZMMzIgMy4yTDI4LjggMEwxNiAxMi44TDMuMiAwTDAgMy4yTDEyLjggMTZMMCAyOC44TDMuMiAzMkwxNiAxOS4yTDI4LjggMzJMMzIgMjguOFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuNiIvPg0KPC9zdmc+DQo=");
+}
+
 .popup__label {
   margin: 0;
   font-weight: 900;
@@ -248,6 +278,12 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
+  border-radius: 2px;
+}
+
+.popup__save-button:hover {
+  background-color:rgba(0, 0, 0, .8);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1279px) {
