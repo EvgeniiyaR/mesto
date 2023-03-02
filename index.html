@@ -14,11 +14,11 @@
       <img class="header__logo" src="images/logo.svg" alt="Логотип">
     </header>
     <main>
-      <section class="profile" aria-label="Профиль">
+      <section class="profile">
         <div class="profile__view">
           <img class="profile__avatar" src="images/avatar.png" alt="Аватар">
           <div class="profile__info">
-            <p class="profile__name">Жак-Ив Кусто</p>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__about">Исследователь океана</p>
             <button class="profile__edit-button"></button>
           </div>
@@ -63,6 +63,15 @@
     <footer class="footer">
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
+  </div>
+  <div class="popup">
+    <form class="popup__container">
+      <button class="popup__exit-button"></button>
+      <label class="popup__label" for="edit-form">Редактировать&nbsp;профиль</label>
+      <input class="popup__input" type="text" id="edit-form" value="Жак-Ив Кусто">
+      <input class="popup__input" type="text" id="edit-form" value="Исследователь океана">
+      <input class="popup__save-button" type="submit" id="edit-form">
+    </form>
   </div>
 </body>
 </html>
