@@ -4,23 +4,23 @@
   background-image: url(../../../images/add.svg);
   background-color: transparent;
   background-repeat: no-repeat;
+  background-size: 22px 22px;
   width: 150px;
   height: 50px;
   background-position: center center;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
-  transition: border-color .3s,
-              background-image .3s;
+  transition: opacity .3s;
 }
 
 .profile__add-button:hover {
   cursor: pointer;
-  border-color: rgba(255, 255, 255, 0.6);
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0yMiA5Ljc3Nzc4SDEyLjIyMjJWMEg5Ljc3Nzc4VjkuNzc3NzhIMFYxMi4yMjIySDkuNzc3NzhWMjJIMTIuMjIyMlYxMi4yMjIySDIyVjkuNzc3NzhaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjYiLz4NCjwvc3ZnPg0K");
+  opacity: .6;
 }
 
 @media screen and (max-width: 1279px) {
   .profile__add-button {
     width: calc(282px + (150 - 282) * (100vw - 320px) / (1279 - 320));
+    background-size: 16px 16px;
   }
 }
