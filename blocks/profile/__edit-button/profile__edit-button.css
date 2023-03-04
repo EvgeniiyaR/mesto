@@ -26,5 +26,6 @@
     height: calc(18px + (24 - 18) * (100vw - 320px) / (1279 - 320));
     margin-bottom: 5px;
     background-size: 7.5px 7.5px;
+    transform: translateX(14px);
   }
 }
