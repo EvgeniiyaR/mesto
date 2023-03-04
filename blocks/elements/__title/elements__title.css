@@ -1,6 +1,5 @@
 .elements__title {
   grid-area: title;
-  margin: 0;
   margin: 25px 0 25px 21px;
   font-weight: 900;
   font-size: 24px;
@@ -8,4 +7,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  width: 188px;
 }
