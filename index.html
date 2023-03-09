@@ -28,7 +28,10 @@
         <ul class="elements__list">
           <template id="elements__element">
             <li class="elements__element">
-              <img class="elements__image" src="#" alt="#">
+              <div class="elements__container">
+                <img class="elements__image" src="#" alt="#">
+                <button class="elements__basket" type="button"></button>
+              </div>
               <h2 class="elements__title"></h2>
               <button class="elements__like-button" type="button"></button>
             </li>
@@ -45,7 +48,7 @@
       <button class="popup__exit-button" type="button"></button>
       <h3 class="popup__label">Редактировать&nbsp;профиль</h3>
       <form class="popup__form" name="edit">
-        <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Имя">
+        <input class="popup__input popup__input_type_name" type="text" name="author" placeholder="Имя">
         <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе">
         <button class="popup__button" type="submit" name="save" value="Сохранить">Сохранить</button>
       </form>

@@ -1,5 +1,4 @@
 .elements__image {
-  grid-area: image;
   display: block;
   object-fit: cover;
   width: 100%;

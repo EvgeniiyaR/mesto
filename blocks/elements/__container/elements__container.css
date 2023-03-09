@@ -1,0 +1,4 @@
+.elements__container {
+  grid-area: image;
+  position: relative;
+}

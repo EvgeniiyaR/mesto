@@ -1,0 +1,16 @@
+.elements__basket {
+  position: absolute;
+  background-image: url(../../../images/basket.svg);
+  border: none;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  width: 18px;
+  height: 19px;
+  transition: opacity .3s;
+}
+
+.elements__basket:hover {
+  cursor: pointer;
+  opacity: .6;
+}

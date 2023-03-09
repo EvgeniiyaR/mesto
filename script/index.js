@@ -16,7 +16,9 @@ const popupInputTypeUrl = body.querySelector('.popup__input_type_url');
 const profileName = body.querySelector('.profile__name');
 const profileAbout = body.querySelector('.profile__about');
 
-const formElement = body.querySelector('.popup__container');
+const formElement = body.querySelectorAll('.popup__container');
+const formElementArray = Array.from(formElement);
+
 const popupExitButton = body.querySelectorAll('.popup__exit-button');
 const popupExitButtonArray = Array.from(popupExitButton);
 
@@ -61,10 +63,10 @@ function addCard(title, imageUrl) {
   imageElement.alt = title;
   titleElement.textContent = title;
 
-  listElements.append(cardElement);
+  listElements.prepend(cardElement);
 }
 
-initialCards.forEach((item) => addCard(item.name, item.link));
+initialCards.reverse().forEach((item) => addCard(item.name, item.link));
 
 //Открытие попапа
 
@@ -80,25 +82,51 @@ function editPopup() {
 
 function addPopup() {
   openPopup(popupTypeAdd);
+  popupInputTypeTitle.value = '';
+  popupInputTypeUrl.value = '';
 }
 
 profileEditButton.addEventListener('click', editPopup);
 profileAddButton.addEventListener('click', addPopup);
 
-function exitPopup(evt) {
-  const target = evt.target.closest('.popup');
-  target.classList.remove('popup_opened');
-}
-
 //Закрытие попапа
+
+function exitPopup(evt) {
+  const targetExit = evt.target.closest('.popup');
+  targetExit.classList.remove('popup_opened');
+}
 
 popupExitButtonArray.forEach(item => item.addEventListener('click', exitPopup));
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = popupInputTypeName.value;
-  profileAbout.textContent = popupInputTypeAbout.value;
+  if (evt.target.name === "edit") {
+    formSubmitEdit();
+  } else if (evt.target.name === "add") {
+    formSubmitAdd();
+  }
   exitPopup(evt);
 }
 
-formElement.addEventListener('submit', handleFormSubmit);
+function formSubmitEdit() {
+  profileName.textContent = popupInputTypeName.value;
+  profileAbout.textContent = popupInputTypeAbout.value;
+}
+
+function formSubmitAdd() {
+  addCard(popupInputTypeTitle.value, popupInputTypeUrl.value);
+}
+
+formElementArray.forEach(item => item.addEventListener('submit', handleFormSubmit));
+
+//лайк
+
+const elementsLikeButton = body.querySelectorAll('.elements__like-button');
+const elementsLikeButtonArray = Array.from(elementsLikeButton);
+
+elementsLikeButtonArray.forEach(item => item.addEventListener('click', addLike));
+
+function addLike(evt) {
+  const targetLike = evt.target;
+  targetLike.classList.toggle('elements__like-button_active');
+}
