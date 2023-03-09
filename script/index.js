@@ -130,3 +130,15 @@ function addLike(evt) {
   const targetLike = evt.target;
   targetLike.classList.toggle('elements__like-button_active');
 }
+
+//удаление карточки
+
+const elementsBasketButton = body.querySelectorAll('.elements__basket');
+const elementsBasketButtonArray = Array.from(elementsBasketButton);
+
+elementsBasketButtonArray.forEach(item => item.addEventListener('click', deleteCard));
+
+function deleteCard(evt) {
+  const targetCardBasket = evt.target.closest('.elements__element');
+  targetCardBasket.remove();
+}
