@@ -66,7 +66,7 @@ function addCard(title, imageUrl) {
   listElements.prepend(cardElement);
 }
 
-initialCards.reverse().forEach((item) => addCard(item.name, item.link));
+initialCards.reverse().forEach(initialCard => addCard(initialCard.name, initialCard.link));
 
 //Открытие попапа
 
@@ -96,7 +96,7 @@ function exitPopup(evt) {
   targetExit.classList.remove('popup_opened');
 }
 
-popupExitButtonArray.forEach(item => item.addEventListener('click', exitPopup));
+popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', exitPopup));
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -117,14 +117,14 @@ function formSubmitAdd() {
   addCard(popupInputTypeTitle.value, popupInputTypeUrl.value);
 }
 
-formElementArray.forEach(item => item.addEventListener('submit', handleFormSubmit));
+formElementArray.forEach(formElement => formElement.addEventListener('submit', handleFormSubmit));
 
 //лайк
 
 const elementsLikeButton = body.querySelectorAll('.elements__like-button');
 const elementsLikeButtonArray = Array.from(elementsLikeButton);
 
-elementsLikeButtonArray.forEach(item => item.addEventListener('click', addLike));
+elementsLikeButtonArray.forEach(elementsLikeButton => elementsLikeButton.addEventListener('click', addLike));
 
 function addLike(evt) {
   const targetLike = evt.target;
@@ -136,9 +136,27 @@ function addLike(evt) {
 const elementsBasketButton = body.querySelectorAll('.elements__basket');
 const elementsBasketButtonArray = Array.from(elementsBasketButton);
 
-elementsBasketButtonArray.forEach(item => item.addEventListener('click', deleteCard));
+elementsBasketButtonArray.forEach(elementsBasketButton => elementsBasketButton.addEventListener('click', deleteCard));
 
 function deleteCard(evt) {
   const targetCardBasket = evt.target.closest('.elements__element');
   targetCardBasket.remove();
 }
+
+//Открытие попапа по картинке
+
+const popupTypeImg = body.querySelector('.popup_type_img');
+const elementsContainerButton = body.querySelectorAll('.elements__image');
+const elementsContainerButtonArray = Array.from(elementsContainerButton);
+const popupImage = body.querySelector('.popup__image');
+const popupTitle = body.querySelector('.popup__title');
+
+
+function imgPopup(evt) {
+  openPopup(popupTypeImg);
+  popupImage.src = evt.target.src;
+  popupImage.alt = evt.target.alt;
+  popupTitle.textContent = evt.target.alt;
+}
+
+elementsContainerButtonArray.forEach(elementsContainerButton => elementsContainerButton.addEventListener('click', imgPopup));
