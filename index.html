@@ -26,36 +26,14 @@
       </section>
       <section class="elements" aria-label="Карточки путешествий">
         <ul class="elements__list">
-          <li class="elements__element">
-            <img class="elements__image" src="images/1.jpg" alt="Карачаевск">
-            <h2 class="elements__title">Карачаевск</h2>
-            <button class="elements__like-button" type="button"></button>
-          </li>
-          <li class="elements__element">
-            <img class="elements__image" src="images/2.jpg" alt="Гора Эльбрус">
-            <h2 class="elements__title">Гора Эльбрус</h2>
-            <button class="elements__like-button" type="button"></button>
-          </li>
-          <li class="elements__element">
-            <img class="elements__image" src="images/3.jpg" alt="Домбай">
-            <h2 class="elements__title">Домбай</h2>
-            <button class="elements__like-button" type="button"></button>
-          </li>
-          <li class="elements__element">
-            <img class="elements__image" src="images/4.jpg" alt="Гора Эльбрус">
-            <h2 class="elements__title">Гора Эльбрус</h2>
-            <button class="elements__like-button" type="button"></button>
-          </li>
-          <li class="elements__element">
-            <img class="elements__image" src="images/5.jpg" alt="Домбай">
-            <h2 class="elements__title">Домбай</h2>
-            <button class="elements__like-button" type="button"></button>
-          </li>
-          <li class="elements__element">
-            <img class="elements__image" src="images/6.jpg" alt="Карачаево-Черкесия">
-            <h2 class="elements__title">Карачаево-Черкесия</h2>
-            <button class="elements__like-button" type="button"></button>
-          </li>
+          <template id="elements__element">
+            <li class="elements__element">
+              <img class="elements__image" src="#" alt="#">
+              <button class="elements__basket" type="button"></button>
+              <h2 class="elements__title"></h2>
+              <button class="elements__like-button" type="button"></button>
+            </li>
+          </template>
         </ul>
       </section>
     </main>
@@ -63,15 +41,33 @@
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div class="popup popup_type_edit">
     <div class="popup__container">
       <button class="popup__exit-button" type="button"></button>
       <h3 class="popup__label">Редактировать&nbsp;профиль</h3>
       <form class="popup__form" name="edit">
-        <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Имя">
+        <input class="popup__input popup__input_type_name" type="text" name="author" placeholder="Имя">
         <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе">
-        <button class="popup__save-button" type="submit" name="save" value="Сохранить">Сохранить</button>
+        <button class="popup__button" type="submit" name="save" value="Сохранить">Сохранить</button>
       </form>
+    </div>
+  </div>
+  <div class="popup popup_type_add">
+    <div class="popup__container">
+      <button class="popup__exit-button" type="button"></button>
+      <h3 class="popup__label">Новое&nbsp;место</h3>
+      <form class="popup__form" name="add">
+        <input class="popup__input popup__input_type_title" type="text" name="title" placeholder="Название">
+        <input class="popup__input popup__input_type_url" type="text" name="url" placeholder="Ссылка на картинку">
+        <button class="popup__button" type="submit" name="create" value="Создать">Создать</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_type_img">
+    <div class="popup__image-container">
+      <button class="popup__exit-button" type="button"></button>
+      <img class="popup__image" src="#" alt="#">
+      <h3 class="popup__title">#</h3>
     </div>
   </div>
   <script src="script/index.js"></script>
