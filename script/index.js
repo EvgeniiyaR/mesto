@@ -3,27 +3,19 @@ const body = document.querySelector('.body');
 const profileEditButton = body.querySelector('.profile__edit-button');
 const profileAddButton = body.querySelector('.profile__add-button');
 
-const popup = body.querySelectorAll('.popup');
-
-const popupTypeEdit = body.querySelector('.popup_type_edit');
-const popupTypeAdd = body.querySelector('.popup_type_add');
-
-const popupInputTypeName = body.querySelector('.popup__input_type_name');
-const popupInputTypeAbout = body.querySelector('.popup__input_type_about');
-const popupInputTypeTitle = body.querySelector('.popup__input_type_title');
-const popupInputTypeUrl = body.querySelector('.popup__input_type_url');
-
 const profileName = body.querySelector('.profile__name');
 const profileAbout = body.querySelector('.profile__about');
 
-const formElement = body.querySelectorAll('.popup__container');
-const formElementArray = Array.from(formElement);
+const popupTypeEdit = body.querySelector('.popup_type_edit');
+const popupTypeAdd = body.querySelector('.popup_type_add');
+const popupTypeImg = body.querySelector('.popup_type_img');
 
-const popupExitButton = body.querySelectorAll('.popup__exit-button');
-const popupExitButtonArray = Array.from(popupExitButton);
-
-const cardTemplate = body.querySelector('#elements__element').content;
-const listElements = body.querySelector('.elements__list');
+const popupInputTypeName = popupTypeEdit.querySelector('.popup__input_type_name');
+const popupInputTypeAbout = popupTypeEdit.querySelector('.popup__input_type_about');
+const popupInputTypeTitle = popupTypeAdd.querySelector('.popup__input_type_title');
+const popupInputTypeUrl = popupTypeAdd.querySelector('.popup__input_type_url');
+const popupImage = popupTypeImg.querySelector('.popup__image');
+const popupTitle = popupTypeImg.querySelector('.popup__title');
 
 const initialCards = [
   {
@@ -52,7 +44,10 @@ const initialCards = [
   }
 ];
 
-//Добавление карточек
+//Добавление карточек из заготовки
+
+const cardTemplate = body.querySelector('#elements__element').content;
+const elementsList = body.querySelector('.elements__list');
 
 function addCard(title, imageUrl) {
   const cardElement = cardTemplate.querySelector('.elements__element').cloneNode(true);
@@ -63,7 +58,7 @@ function addCard(title, imageUrl) {
   imageElement.alt = title;
   titleElement.textContent = title;
 
-  listElements.prepend(cardElement);
+  elementsList.prepend(cardElement);
 }
 
 initialCards.reverse().forEach(initialCard => addCard(initialCard.name, initialCard.link));
@@ -91,12 +86,20 @@ profileAddButton.addEventListener('click', addPopup);
 
 //Закрытие попапа
 
+const popupExitButtons = body.querySelectorAll('.popup__exit-button');
+const popupExitButtonArray = Array.from(popupExitButtons);
+
 function exitPopup(evt) {
   const targetExit = evt.target.closest('.popup');
   targetExit.classList.remove('popup_opened');
 }
 
 popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', exitPopup));
+
+//Заполнение формы
+
+const formElements = body.querySelectorAll('.popup__container');
+const formElementArray = Array.from(formElements);
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -108,10 +111,14 @@ function handleFormSubmit(evt) {
   exitPopup(evt);
 }
 
+//Заполнение формы с редактированием профиля
+
 function formSubmitEdit() {
   profileName.textContent = popupInputTypeName.value;
   profileAbout.textContent = popupInputTypeAbout.value;
 }
+
+//Заполнение формы для добавления картинки
 
 function formSubmitAdd() {
   addCard(popupInputTypeTitle.value, popupInputTypeUrl.value);
@@ -119,10 +126,10 @@ function formSubmitAdd() {
 
 formElementArray.forEach(formElement => formElement.addEventListener('submit', handleFormSubmit));
 
-//лайк
+//Лайк
 
-const elementsLikeButton = body.querySelectorAll('.elements__like-button');
-const elementsLikeButtonArray = Array.from(elementsLikeButton);
+const elementsLikeButtons = body.querySelectorAll('.elements__like-button');
+const elementsLikeButtonArray = Array.from(elementsLikeButtons);
 
 elementsLikeButtonArray.forEach(elementsLikeButton => elementsLikeButton.addEventListener('click', addLike));
 
@@ -131,10 +138,10 @@ function addLike(evt) {
   targetLike.classList.toggle('elements__like-button_active');
 }
 
-//удаление карточки
+//Удаление карточки
 
-const elementsBasketButton = body.querySelectorAll('.elements__basket');
-const elementsBasketButtonArray = Array.from(elementsBasketButton);
+const elementsBasketButtons = body.querySelectorAll('.elements__basket');
+const elementsBasketButtonArray = Array.from(elementsBasketButtons);
 
 elementsBasketButtonArray.forEach(elementsBasketButton => elementsBasketButton.addEventListener('click', deleteCard));
 
@@ -145,12 +152,8 @@ function deleteCard(evt) {
 
 //Открытие попапа по картинке
 
-const popupTypeImg = body.querySelector('.popup_type_img');
-const elementsContainerButton = body.querySelectorAll('.elements__image');
-const elementsContainerButtonArray = Array.from(elementsContainerButton);
-const popupImage = body.querySelector('.popup__image');
-const popupTitle = body.querySelector('.popup__title');
-
+const elementsImageButtons = body.querySelectorAll('.elements__image');
+const elementsImageButtonArray = Array.from(elementsImageButtons);
 
 function imgPopup(evt) {
   openPopup(popupTypeImg);
@@ -159,4 +162,4 @@ function imgPopup(evt) {
   popupTitle.textContent = evt.target.alt;
 }
 
-elementsContainerButtonArray.forEach(elementsContainerButton => elementsContainerButton.addEventListener('click', imgPopup));
+elementsImageButtonArray.forEach(elementsImageButton => elementsImageButton.addEventListener('click', imgPopup));
