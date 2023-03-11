@@ -78,7 +78,7 @@ function exitPopup(popupExit) {
 
 //Заполнение формы с редактированием профиля
 
-function handleformSubmitEdit(evt) {
+function handleFormSubmitEdit(evt) {
   evt.preventDefault();
   profileName.textContent = popupInputTypeName.value;
   profileAbout.textContent = popupInputTypeAbout.value;
@@ -87,7 +87,7 @@ function handleformSubmitEdit(evt) {
 
 //Заполнение формы для добавления картинки
 
-function handleformSubmitAdd(evt) {
+function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   addCard(popupInputTypeTitle.value, popupInputTypeUrl.value);
   exitPopup(popupTypeAdd);
@@ -124,5 +124,5 @@ profileAddButton.addEventListener('click', addPopup);
 
 popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopup(popupExitButton)));
 
-formElementEdit.addEventListener('submit', handleformSubmitEdit);
-formElementAdd.addEventListener('submit', handleformSubmitAdd);
+formElementEdit.addEventListener('submit', handleFormSubmitEdit);
+formElementAdd.addEventListener('submit', handleFormSubmitAdd);
