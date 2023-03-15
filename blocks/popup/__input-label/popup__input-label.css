@@ -1,4 +1,5 @@
-.popup__form {
+.popup__input-label {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
