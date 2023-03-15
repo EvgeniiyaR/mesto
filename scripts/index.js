@@ -126,3 +126,5 @@ popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener
 
 formElementEdit.addEventListener('submit', handleFormSubmitEdit);
 formElementAdd.addEventListener('submit', handleFormSubmitAdd);
+
+enableValidation();

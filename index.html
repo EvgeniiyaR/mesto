@@ -45,9 +45,11 @@
     <div class="popup__container">
       <button class="popup__exit-button" type="button"></button>
       <h3 class="popup__label">Редактировать&nbsp;профиль</h3>
-      <form class="popup__form" name="edit">
-        <input class="popup__input popup__input_type_name" type="text" name="author" placeholder="Имя">
-        <input class="popup__input popup__input_type_about" type="text" name="about" placeholder="О себе">
+      <form class="popup__form" name="edit" novalidate>
+        <input class="popup__input popup__input_type_name" id="author-input" type="text" name="author" placeholder="Имя" required minlength="2" maxlength="40">
+        <span class="author-input-error popup__input-error"></span>
+        <input class="popup__input popup__input_type_about" id="about-input" type="text" name="about" placeholder="О себе" required minlength="2" maxlength="200">
+        <span class="about-input-error popup__input-error"></span>
         <button class="popup__button" type="submit" name="save" value="Сохранить">Сохранить</button>
       </form>
     </div>
@@ -56,9 +58,11 @@
     <div class="popup__container">
       <button class="popup__exit-button" type="button"></button>
       <h3 class="popup__label">Новое&nbsp;место</h3>
-      <form class="popup__form" name="add">
-        <input class="popup__input popup__input_type_title" type="text" name="title" placeholder="Название">
-        <input class="popup__input popup__input_type_url" type="text" name="url" placeholder="Ссылка на картинку">
+      <form class="popup__form" name="add" novalidate>
+        <input class="popup__input popup__input_type_title" id="title-input" type="text" name="title" placeholder="Название" required minlength="2" maxlength="30">
+        <span class="title-input-error popup__input-error"></span>
+        <input class="popup__input popup__input_type_url" id="url-input" type="url" name="url" placeholder="Ссылка на картинку" required>
+        <span class="url-input-error popup__input-error"></span>
         <button class="popup__button" type="submit" name="create" value="Создать">Создать</button>
       </form>
     </div>
@@ -70,6 +74,7 @@
       <h3 class="popup__title">#</h3>
     </div>
   </div>
+  <script src="scripts/validate.js"></script>
   <script src="scripts/initial-сards.js"></script>
   <script src="scripts/index.js"></script>
 </body>
