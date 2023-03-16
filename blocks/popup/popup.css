@@ -13,6 +13,7 @@
   z-index: 3;
   opacity: 0;
   visibility: hidden;
+  cursor: pointer;
 }
 
 .popup:hover {

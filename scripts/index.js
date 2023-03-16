@@ -9,6 +9,9 @@ const profileAddButton = body.querySelector('.profile__add-button');
 const cardTemplate = body.querySelector('#elements__element').content;
 const elementsList = body.querySelector('.elements__list');
 
+const popups = body.querySelectorAll('.popup');
+const popupArray = Array.from(popups);
+
 const popupTypeEdit = body.querySelector('.popup_type_edit');
 const popupTypeAdd = body.querySelector('.popup_type_add');
 const popupTypeImg = body.querySelector('.popup_type_img');
@@ -40,7 +43,7 @@ function createCard(title, imageUrl) {
   const imageElement = cardElement.querySelector('.elements__image');
   const titleElement = cardElement.querySelector('.elements__title');
   const buttonLikeElement = cardElement.querySelector('.elements__like-button');
-  const buttonBasketElement = cardElement.querySelector('.elements__basket');
+  const buttonBasketElement = cardElement.querySelector('.elements__basket-button');
 
   imageElement.src = imageUrl;
   imageElement.alt = title;
@@ -57,12 +60,14 @@ function createCard(title, imageUrl) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', exitPopupByPressEscape);
 }
 
-function editPopup() {
+function editPopup(dataPopupClasses) {
   openPopup(popupTypeEdit);
   popupInputTypeName.value = profileName.textContent;
   popupInputTypeAbout.value = profileAbout.textContent;
+  resetValidateForEditPopup(dataPopupClasses, popupTypeEdit);
 }
 
 function addPopup() {
@@ -71,26 +76,44 @@ function addPopup() {
 
 //Закрытие попапа
 
-function exitPopup(popupExit) {
+function closePopup(targetClose) {
+  targetClose.classList.remove('popup_opened');
+  document.removeEventListener('keyup', exitPopupByPressEscape);
+}
+
+function exitPopupByClickButton(popupExit) {
   const targetExit = popupExit.closest('.popup');
-  targetExit.classList.remove('popup_opened');
+  closePopup(targetExit);
+}
+
+function exitPopupByClickOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.target);
+  }
+}
+
+function exitPopupByPressEscape(evt) {
+  if (evt.key === 'Escape') {
+    popupArray.forEach(popup => closePopup(popup));
+  }
+  console.log(1);
 }
 
 //Заполнение формы с редактированием профиля
 
-function handleformSubmitEdit(evt) {
+function handleFormSubmitEdit(evt) {
   evt.preventDefault();
   profileName.textContent = popupInputTypeName.value;
   profileAbout.textContent = popupInputTypeAbout.value;
-  exitPopup(popupTypeEdit);
+  closePopup(popupTypeEdit);
 }
 
 //Заполнение формы для добавления картинки
 
-function handleformSubmitAdd(evt) {
+function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   addCard(popupInputTypeTitle.value, popupInputTypeUrl.value);
-  exitPopup(popupTypeAdd);
+  closePopup(popupTypeAdd);
   evt.target.reset();
 }
 
@@ -117,12 +140,23 @@ function imgPopup(title, imageUrl) {
   popupTitle.textContent = title;
 }
 
+//Сбрасывание ошибок валидации при повторном открытии редактирования профиля, если до этого его уже открывали, некорректно редактировали и потом закрыли
+
+function resetValidateForEditPopup(dataPopupClasses, popupEdit) {
+  const formElementPopupEdit = popupEdit.querySelector('.popup__form');
+  const inputListPopupEdit = formElementPopupEdit.querySelectorAll('.popup__input');
+  const inputListArrayPopupEdit = Array.from(inputListPopupEdit);
+  inputListArrayPopupEdit.forEach(inputElementPopupEdit => hideInputError(dataPopupClasses, formElementPopupEdit, inputElementPopupEdit));
+}
+
 initialCards.reverse().forEach(initialCard => addCard(initialCard.name, initialCard.link));
 
-profileEditButton.addEventListener('click', editPopup);
+profileEditButton.addEventListener('click', () => editPopup(dataPopupClasses));
 profileAddButton.addEventListener('click', addPopup);
 
-popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopup(popupExitButton)));
+popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopupByClickButton(popupExitButton)));
 
-formElementEdit.addEventListener('submit', handleformSubmitEdit);
-formElementAdd.addEventListener('submit', handleformSubmitAdd);
+formElementEdit.addEventListener('submit', handleFormSubmitEdit);
+formElementAdd.addEventListener('submit', handleFormSubmitAdd);
+
+popupArray.forEach(popup => popup.addEventListener('mousedown', exitPopupByClickOverlay));
