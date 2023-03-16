@@ -96,7 +96,6 @@ function exitPopupByPressEscape(evt) {
   if (evt.key === 'Escape') {
     popupArray.forEach(popup => closePopup(popup));
   }
-  console.log(1);
 }
 
 //Заполнение формы с редактированием профиля
