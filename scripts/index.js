@@ -150,8 +150,8 @@ function imgPopup(title, imageUrl) {
 //Сбрасывание ошибок валидации при повторном открытии редактирования профиля, если до этого его уже открывали, некорректно редактировали и потом закрыли
 
 function resetValidateForEditPopup(dataPopupClasses, popupEdit) {
-  const formElementPopupEdit = popupEdit.querySelector('.popup__form');
-  const inputListPopupEdit = formElementPopupEdit.querySelectorAll('.popup__input');
+  const formElementPopupEdit = popupEdit.querySelector(dataPopupClasses.formSelector);
+  const inputListPopupEdit = formElementPopupEdit.querySelectorAll(dataPopupClasses.inputSelector);
   const inputListArrayPopupEdit = Array.from(inputListPopupEdit);
   inputListArrayPopupEdit.forEach(inputElementPopupEdit => hideInputError(dataPopupClasses, formElementPopupEdit, inputElementPopupEdit));
 }
