@@ -9,8 +9,8 @@ const profileAddButton = body.querySelector('.profile__add-button');
 const cardTemplate = body.querySelector('#elements__element').content;
 const elementsList = body.querySelector('.elements__list');
 
-const popup = body.querySelectorAll('.popup');
-const popupArray = Array.from(popup);
+const popups = body.querySelectorAll('.popup');
+const popupArray = Array.from(popups);
 
 const popupTypeEdit = body.querySelector('.popup_type_edit');
 const popupTypeAdd = body.querySelector('.popup_type_add');
@@ -60,12 +60,14 @@ function createCard(title, imageUrl) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', exitPopupByPressEscape);
 }
 
-function editPopup() {
+function editPopup(dataPopupClasses) {
   openPopup(popupTypeEdit);
   popupInputTypeName.value = profileName.textContent;
   popupInputTypeAbout.value = profileAbout.textContent;
+  resetValidateForEditPopup(dataPopupClasses, popupTypeEdit);
 }
 
 function addPopup() {
@@ -76,6 +78,7 @@ function addPopup() {
 
 function closePopup(targetClose) {
   targetClose.classList.remove('popup_opened');
+  document.removeEventListener('keyup', exitPopupByPressEscape);
 }
 
 function exitPopupByClickButton(popupExit) {
@@ -93,6 +96,7 @@ function exitPopupByPressEscape(evt) {
   if (evt.key === 'Escape') {
     popupArray.forEach(popup => closePopup(popup));
   }
+  console.log(1);
 }
 
 //Заполнение формы с редактированием профиля
@@ -136,9 +140,18 @@ function imgPopup(title, imageUrl) {
   popupTitle.textContent = title;
 }
 
+//Сбрасывание ошибок валидации при повторном открытии редактирования профиля, если до этого его уже открывали, некорректно редактировали и потом закрыли
+
+function resetValidateForEditPopup(dataPopupClasses, popupEdit) {
+  const formElementPopupEdit = popupEdit.querySelector('.popup__form');
+  const inputListPopupEdit = formElementPopupEdit.querySelectorAll('.popup__input');
+  const inputListArrayPopupEdit = Array.from(inputListPopupEdit);
+  inputListArrayPopupEdit.forEach(inputElementPopupEdit => hideInputError(dataPopupClasses, formElementPopupEdit, inputElementPopupEdit));
+}
+
 initialCards.reverse().forEach(initialCard => addCard(initialCard.name, initialCard.link));
 
-profileEditButton.addEventListener('click', editPopup);
+profileEditButton.addEventListener('click', () => editPopup(dataPopupClasses));
 profileAddButton.addEventListener('click', addPopup);
 
 popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopupByClickButton(popupExitButton)));
@@ -146,6 +159,4 @@ popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener
 formElementEdit.addEventListener('submit', handleFormSubmitEdit);
 formElementAdd.addEventListener('submit', handleFormSubmitAdd);
 
-popupArray.forEach(popup => popup.addEventListener('click', (evt) => exitPopupByClickOverlay(evt)));
-
-document.addEventListener('keyup', (evt) => exitPopupByPressEscape(evt));
+popupArray.forEach(popup => popup.addEventListener('mousedown', exitPopupByClickOverlay));
