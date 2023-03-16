@@ -9,6 +9,9 @@ const profileAddButton = body.querySelector('.profile__add-button');
 const cardTemplate = body.querySelector('#elements__element').content;
 const elementsList = body.querySelector('.elements__list');
 
+const popup = body.querySelectorAll('.popup');
+const popupArray = Array.from(popup);
+
 const popupTypeEdit = body.querySelector('.popup_type_edit');
 const popupTypeAdd = body.querySelector('.popup_type_add');
 const popupTypeImg = body.querySelector('.popup_type_img');
@@ -40,7 +43,7 @@ function createCard(title, imageUrl) {
   const imageElement = cardElement.querySelector('.elements__image');
   const titleElement = cardElement.querySelector('.elements__title');
   const buttonLikeElement = cardElement.querySelector('.elements__like-button');
-  const buttonBasketElement = cardElement.querySelector('.elements__basket');
+  const buttonBasketElement = cardElement.querySelector('.elements__basket-button');
 
   imageElement.src = imageUrl;
   imageElement.alt = title;
@@ -71,9 +74,25 @@ function addPopup() {
 
 //Закрытие попапа
 
-function exitPopup(popupExit) {
+function closePopup(targetClose) {
+  targetClose.classList.remove('popup_opened');
+}
+
+function exitPopupByClickButton(popupExit) {
   const targetExit = popupExit.closest('.popup');
-  targetExit.classList.remove('popup_opened');
+  closePopup(targetExit);
+}
+
+function exitPopupByClickOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.target);
+  }
+}
+
+function exitPopupByPressEscape(evt) {
+  if (evt.key === 'Escape') {
+    popupArray.forEach(popup => closePopup(popup));
+  }
 }
 
 //Заполнение формы с редактированием профиля
@@ -82,7 +101,7 @@ function handleFormSubmitEdit(evt) {
   evt.preventDefault();
   profileName.textContent = popupInputTypeName.value;
   profileAbout.textContent = popupInputTypeAbout.value;
-  exitPopup(popupTypeEdit);
+  closePopup(popupTypeEdit);
 }
 
 //Заполнение формы для добавления картинки
@@ -90,7 +109,7 @@ function handleFormSubmitEdit(evt) {
 function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   addCard(popupInputTypeTitle.value, popupInputTypeUrl.value);
-  exitPopup(popupTypeAdd);
+  closePopup(popupTypeAdd);
   evt.target.reset();
 }
 
@@ -122,9 +141,11 @@ initialCards.reverse().forEach(initialCard => addCard(initialCard.name, initialC
 profileEditButton.addEventListener('click', editPopup);
 profileAddButton.addEventListener('click', addPopup);
 
-popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopup(popupExitButton)));
+popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopupByClickButton(popupExitButton)));
 
 formElementEdit.addEventListener('submit', handleFormSubmitEdit);
 formElementAdd.addEventListener('submit', handleFormSubmitAdd);
 
-enableValidation();
+popupArray.forEach(popup => popup.addEventListener('click', (evt) => exitPopupByClickOverlay(evt)));
+
+document.addEventListener('keyup', (evt) => exitPopupByPressEscape(evt));
