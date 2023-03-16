@@ -1,8 +1,4 @@
 .popup_opened {
   visibility: visible;
-}
-
-.popup_opened:hover {
   opacity: 1;
-  transition: visibility .0s, opacity .3s linear;
 }

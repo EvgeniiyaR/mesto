@@ -70,8 +70,12 @@ function editPopup(dataPopupClasses) {
   resetValidateForEditPopup(dataPopupClasses, popupTypeEdit);
 }
 
-function addPopup() {
+function addPopup(dataPopupClasses) {
   openPopup(popupTypeAdd);
+  const inputListAddPopup = popupTypeAdd.querySelectorAll(dataPopupClasses.inputSelector);
+  const inputListArrayAddPopup = Array.from(inputListAddPopup);
+  const buttonElementAddPopup = popupTypeAdd.querySelector(dataPopupClasses.submitButtonSelector);
+  toggleButtonState(dataPopupClasses, inputListArrayAddPopup, buttonElementAddPopup);
 }
 
 //Закрытие попапа
@@ -94,7 +98,11 @@ function exitPopupByClickOverlay(evt) {
 
 function exitPopupByPressEscape(evt) {
   if (evt.key === 'Escape') {
-    popupArray.forEach(popup => closePopup(popup));
+    popupArray.forEach(popup => {
+      if (popup.classList.contains('popup_opened')) {
+        closePopup(popup);
+      }
+    })
   }
 }
 
@@ -151,7 +159,7 @@ function resetValidateForEditPopup(dataPopupClasses, popupEdit) {
 initialCards.reverse().forEach(initialCard => addCard(initialCard.name, initialCard.link));
 
 profileEditButton.addEventListener('click', () => editPopup(dataPopupClasses));
-profileAddButton.addEventListener('click', addPopup);
+profileAddButton.addEventListener('click', () => addPopup(dataPopupClasses));
 
 popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopupByClickButton(popupExitButton)));
 
