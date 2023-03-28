@@ -21,10 +21,11 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._elementImage = this._element.querySelector('.elements__image');
     this._setEventListeners();
 
-    this._element.querySelector('.elements__image').src = this._imageUrl;
-    this._element.querySelector('.elements__image').alt = this._title;
+    this._elementImage.src = this._imageUrl;
+    this._elementImage.alt = this._title;
     this._element.querySelector('.elements__title').textContent = this._title;
 
     return this._element;
@@ -35,7 +36,7 @@ export default class Card {
   _setEventListeners() {
     this._element.querySelector('.elements__like-button').addEventListener('click', this._addLike);
     this._element.querySelector('.elements__basket-button').addEventListener('click', this._deleteCard);
-    this._element.querySelector('.elements__image').addEventListener('click', () => this._imgPopup());
+    this._elementImage.addEventListener('click', () => this._imgPopup());
   }
 
   //Лайк
