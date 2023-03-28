@@ -52,7 +52,6 @@ const popupArray = Array.from(popups);
 
 const popupTypeEdit = body.querySelector('.popup_type_edit');
 const popupTypeAdd = body.querySelector('.popup_type_add');
-// const popupTypeImg = body.querySelector('.popup_type_img');
 
 const formElementEdit = popupTypeEdit.querySelector('.popup__container');
 const formElementAdd = popupTypeAdd.querySelector('.popup__container');
@@ -64,9 +63,6 @@ const popupInputTypeName = popupTypeEdit.querySelector('.popup__input_type_name'
 const popupInputTypeAbout = popupTypeEdit.querySelector('.popup__input_type_about');
 const popupInputTypeTitle = popupTypeAdd.querySelector('.popup__input_type_title');
 const popupInputTypeUrl = popupTypeAdd.querySelector('.popup__input_type_url');
-
-// const popupImage = popupTypeImg.querySelector('.popup__image');
-// const popupTitle = popupTypeImg.querySelector('.popup__title');
 
 //Добавление карточки
 
