@@ -1,34 +1,8 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import {initialCards} from './constants.js';
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const dataPopupClasses = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -59,10 +33,15 @@ const formElementAdd = popupTypeAdd.querySelector('.popup__container');
 const popupExitButtons = body.querySelectorAll('.popup__exit-button');
 const popupExitButtonArray = Array.from(popupExitButtons);
 
+
 const popupInputTypeName = popupTypeEdit.querySelector('.popup__input_type_name');
 const popupInputTypeAbout = popupTypeEdit.querySelector('.popup__input_type_about');
 const popupInputTypeTitle = popupTypeAdd.querySelector('.popup__input_type_title');
 const popupInputTypeUrl = popupTypeAdd.querySelector('.popup__input_type_url');
+
+const formList = body.querySelectorAll(validationConfig.formSelector);
+const formListArray = Array.from(formList);
+const formValidationClassInstanceDict = {};
 
 //Добавление карточки
 
@@ -80,17 +59,18 @@ function openPopup(popup) {
   document.addEventListener('keyup', exitPopupByPressEscape);
 }
 
-function editPopup(dataPopupClasses) {
+function openEditProfilePopup(validationConfig) {
   openPopup(popupTypeEdit);
   popupInputTypeName.value = profileName.textContent;
   popupInputTypeAbout.value = profileAbout.textContent;
-  resetValidateForEditPopup(dataPopupClasses, popupTypeEdit);
+  resetValidateForPopup(validationConfig, popupTypeEdit);
 }
 
-function addPopup(dataPopupClasses) {
+function openAddCardPopup(validationConfig) {
   openPopup(popupTypeAdd);
-  const form = new FormValidator(dataPopupClasses, popupTypeAdd.querySelector(dataPopupClasses.formSelector));
-  form.enableValidation();
+  popupTypeAdd.querySelector(validationConfig.formSelector).reset();
+  formValidationClassInstanceDict.add.toggleButtonState();
+  resetValidateForPopup(validationConfig, popupTypeAdd);
 }
 
 //Закрытие попапа
@@ -128,7 +108,7 @@ function handleFormSubmitEdit(evt) {
 
 //Заполнение формы для добавления картинки
 
-function handleFormSubmitAdd(evt, ) {
+function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   addCard(popupInputTypeTitle.value, popupInputTypeUrl.value, '#elements__element');
   closePopup(popupTypeAdd);
@@ -137,34 +117,21 @@ function handleFormSubmitAdd(evt, ) {
 
 //Сбрасывание ошибок валидации при повторном открытии редактирования профиля
 
-function resetValidateForEditPopup(dataPopupClasses, popupEdit) {
-  const formElementPopupEdit = popupEdit.querySelector(dataPopupClasses.formSelector);
-  const inputListPopupEdit = formElementPopupEdit.querySelectorAll(dataPopupClasses.inputSelector);
-  const inputListArrayPopupEdit = Array.from(inputListPopupEdit);
-  inputListArrayPopupEdit.forEach(inputElementPopupEdit => {
-    const errorElement = formElementPopupEdit.querySelector(`.${inputElementPopupEdit.id}-error`);
-    inputElementPopupEdit.classList.remove(dataPopupClasses.inputErrorClass);
-    errorElement.classList.remove(dataPopupClasses.errorClass);
-    errorElement.textContent = '';
-  });
-}
-
-function validateForm(dataPopupClasses) {
-  const formList = document.querySelectorAll(dataPopupClasses.formSelector);
-  const formListArray = Array.from(formList);
-
-  formListArray.forEach(formElement => {
-    const form = new FormValidator(dataPopupClasses, formElement);
-    const formElementValidated = form.enableValidation();
-
-    return formElementValidated;
-  });
+function resetValidateForPopup(validationConfig, popup) {
+  const formElement = popup.querySelector(validationConfig.formSelector);
+  const formElementName = formElement.name;
+  if (formElementName in formValidationClassInstanceDict) {
+    const formValidationClassInstance = formValidationClassInstanceDict[formElementName];
+    formValidationClassInstance.inputListArray.forEach(inputElementPopup => {
+      formValidationClassInstance.hideInputError(inputElementPopup);
+    });
+  }
 }
 
 initialCards.reverse().forEach(initialCard => addCard(initialCard.name, initialCard.link, '#elements__element'));
 
-profileEditButton.addEventListener('click', () => editPopup(dataPopupClasses));
-profileAddButton.addEventListener('click', () => addPopup(dataPopupClasses));
+profileEditButton.addEventListener('click', () => openEditProfilePopup(validationConfig));
+profileAddButton.addEventListener('click', () => openAddCardPopup(validationConfig));
 
 popupExitButtonArray.forEach(popupExitButton => popupExitButton.addEventListener('click', () => exitPopupByClickButton(popupExitButton)));
 
@@ -173,4 +140,8 @@ formElementAdd.addEventListener('submit', handleFormSubmitAdd);
 
 popupArray.forEach(popup => popup.addEventListener('mousedown', exitPopupByClickOverlay));
 
-validateForm(dataPopupClasses);
+formListArray.forEach(formElement => {
+  const form = new FormValidator(validationConfig, formElement);
+  formValidationClassInstanceDict[form.formElement.name] = form;
+  form.enableValidation();
+});
