@@ -119,10 +119,8 @@ function editPopup(dataPopupClasses) {
 
 function addPopup(dataPopupClasses) {
   openPopup(popupTypeAdd);
-  const inputListAddPopup = popupTypeAdd.querySelectorAll(dataPopupClasses.inputSelector);
-  const inputListArrayAddPopup = Array.from(inputListAddPopup);
-  const buttonElementAddPopup = popupTypeAdd.querySelector(dataPopupClasses.submitButtonSelector);
-  toggleButtonState(dataPopupClasses, inputListArrayAddPopup, buttonElementAddPopup);
+  const form = new FormValidator(dataPopupClasses, popupTypeAdd.querySelector(dataPopupClasses.formSelector));
+  form.enableValidation();
 }
 
 //Закрытие попапа
