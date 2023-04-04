@@ -1,28 +1,18 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import Section from './Section.js';
-import PopupWithForm from './PopupWithForm.js';
-import PopupWithImage from './PopupWithImage.js';
-import UserInfo from './UserInfo.js';
-import {initialCards} from './constants.js';
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
-
-const body = document.querySelector('.body');
-
-const profileEditButton = body.querySelector('.profile__edit-button');
-const profileAddButton = body.querySelector('.profile__add-button');
-
-const formListArray = Array.from(body.querySelectorAll(validationConfig.formSelector));
-
-const formValidationClassInstanceDict = {};
+import './index.css';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
+import {
+  initialCards,
+  validationConfig,
+  profileEditButton,
+  profileAddButton,
+  formListArray,
+  formValidationClassInstanceDict
+} from '../utils/constants.js';
 
 formListArray.forEach(formElement => {
   const form = new FormValidator(validationConfig, formElement);

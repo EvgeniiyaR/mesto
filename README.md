@@ -20,7 +20,8 @@
 * HTML;
 * CSS (Flex, Grid);
 * JavaScript;
-* Методология БЭМ(Nested).
+* Методология БЭМ(Nested);
+* Webpack.
 
 ---
 
