@@ -11,7 +11,9 @@ import {
   profileEditButton,
   profileAddButton,
   formListArray,
-  formValidationClassInstanceDict
+  formValidationClassInstanceDict,
+  popupInputTypeName,
+  popupInputTypeAbout
 } from '../utils/constants.js';
 
 formListArray.forEach(formElement => {
@@ -20,62 +22,62 @@ formListArray.forEach(formElement => {
   form.enableValidation();
 });
 
-// Редактирование профиля
+const renderer = (initialCard, isDefault) => {
+  const card = new Card(initialCard.name, initialCard.link, '#elements__element', { handleCardClick: (title, url) => {
+  imagePopup.open(title, url);
+  } });
+  const cardElement = card.generateCard();
+  if (isDefault) {
+    cardSection.addItems(cardElement);
+  } else {
+    cardSection.addItem(cardElement);
+  }
+}
+
+const cardSection = new Section({ renderer }, '.elements__list');
+
+const imagePopup = new PopupWithImage('.popup_type_img');
 
 const userInfo = new UserInfo('.profile__name', '.profile__about');
 
-const popupTtypeEdit = new PopupWithForm('.popup_type_edit', { submitForm: (inputsList) => {
-  userInfo.setUserInfo(inputsList.author.value, inputsList.about.value);
+const popupTtypeEdit = new PopupWithForm('.popup_type_edit', { submitForm: (inputList) => {
+  userInfo.setUserInfo(inputList.author, inputList.about);
   popupTtypeEdit.close();
 } });
 
-popupTtypeEdit.setEventListeners();
-profileEditButton.addEventListener('click', () => {
-  popupTtypeEdit.open();
-  const infoEdit = userInfo.getUserInfo();
-  const infoEditValues = popupTtypeEdit.getInputValues();
-  infoEditValues.author.value = infoEdit.name;
-  infoEditValues.about.value = infoEdit.about;
-  formValidationClassInstanceDict.edit.inputListArray.forEach(inputElementPopup => {
-    formValidationClassInstanceDict.edit.hideInputError(inputElementPopup);
-  });
-});
-
-//Функция создания карточки
-
-function addCard(item) {
-  const cardSection = new Section({ items: item , renderer: (initialCard) => {
-    const card = new Card(initialCard.name, initialCard.link, '#elements__element', { handleCardClick: (title, url) => {
-    const imagePopup = new PopupWithImage('.popup_type_img');
-      imagePopup.setEventListeners();
-      imagePopup.open(title, url);
-    } });
-  const cardElement = card.generateCard();
-  cardSection.addItem(cardElement);
-  } }, '.elements__list')
-  cardSection.renderItems();
-}
-
-//Создает картинки из попапа
-
-const popupTypeAdd = new PopupWithForm('.popup_type_add', { submitForm: (inputsList) => {
+const popupTypeAdd = new PopupWithForm('.popup_type_add', { submitForm: (inputList) => {
   const inputValuesDict = {
-    name: inputsList.title.value,
-    link: inputsList.url.value
+    name: inputList.title,
+    link: inputList.url
   };
-  addCard([inputValuesDict]);
+  cardSection.isDefault = false;
+  cardSection.renderItems([inputValuesDict]);
   popupTypeAdd.close();
 }});
 
-popupTypeAdd.setEventListeners();
-profileAddButton.addEventListener('click', () => {
+const openPopupEdit = () => {
+  popupTtypeEdit.open();
+  const infoEdit = userInfo.getUserInfo();
+  popupInputTypeName.value = infoEdit.name;
+  popupInputTypeAbout.value = infoEdit.about;
+  formValidationClassInstanceDict.edit.inputListArray.forEach(inputElementPopup => {
+    formValidationClassInstanceDict.edit.hideInputError(inputElementPopup);
+  });
+}
+
+const openPopuAdd = () => {
   popupTypeAdd.open();
   formValidationClassInstanceDict.add.toggleButtonState();
   formValidationClassInstanceDict.add.inputListArray.forEach(inputElementPopup => {
     formValidationClassInstanceDict.add.hideInputError(inputElementPopup);
   });
-});
+}
 
-// Создает картинки из шаблона
+cardSection.renderItems(initialCards);
 
-addCard(initialCards);
+imagePopup.setEventListeners();
+popupTtypeEdit.setEventListeners();
+popupTypeAdd.setEventListeners();
+
+profileEditButton.addEventListener('click', openPopupEdit);
+profileAddButton.addEventListener('click', openPopuAdd);
