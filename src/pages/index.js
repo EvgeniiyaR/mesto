@@ -22,6 +22,8 @@ formListArray.forEach(formElement => {
   form.enableValidation();
 });
 
+const imagePopup = new PopupWithImage('.popup_type_img');
+
 const renderer = (initialCard, isDefault) => {
   const card = new Card(initialCard.name, initialCard.link, '#elements__element', { handleCardClick: (title, url) => {
   imagePopup.open(title, url);
@@ -35,8 +37,6 @@ const renderer = (initialCard, isDefault) => {
 }
 
 const cardSection = new Section({ renderer }, '.elements__list');
-
-const imagePopup = new PopupWithImage('.popup_type_img');
 
 const userInfo = new UserInfo('.profile__name', '.profile__about');
 
