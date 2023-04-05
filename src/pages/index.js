@@ -65,7 +65,7 @@ const openPopupEdit = () => {
   });
 }
 
-const openPopuAdd = () => {
+const openPopupAdd = () => {
   popupTypeAdd.open();
   formValidationClassInstanceDict.add.toggleButtonState();
   formValidationClassInstanceDict.add.inputListArray.forEach(inputElementPopup => {
@@ -80,4 +80,4 @@ popupTtypeEdit.setEventListeners();
 popupTypeAdd.setEventListeners();
 
 profileEditButton.addEventListener('click', openPopupEdit);
-profileAddButton.addEventListener('click', openPopuAdd);
+profileAddButton.addEventListener('click', openPopupAdd);
