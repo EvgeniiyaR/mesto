@@ -3,7 +3,6 @@ import Popup from './Popup.js';
 export default class PopupWithConfirmation extends Popup {
 	constructor(selectorPopup) {
     super(selectorPopup);
-    // this._submitForm = submitForm;
   }
 
   submitForm({ submitForm }) {
