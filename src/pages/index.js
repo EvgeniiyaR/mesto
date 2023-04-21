@@ -13,8 +13,6 @@ import {
   profileAddButton,
   formListArray,
   formValidationClassInstanceDict,
-  popupInputTypeName,
-  popupInputTypeAbout,
   profileEditAvatarButton
 } from '../utils/constants.js';
 
@@ -24,23 +22,14 @@ formListArray.forEach(formElement => {
   form.enableValidation();
 });
 
-const userInfo = new UserInfo('.profile__name', '.profile__about', '.profile__avatar');
-
-api.getUserInfo()
-.then((res) => {
-  userInfo.setUserInfo(res.name, res.about);
-  userInfo.setUserAvatar(res.name, res.avatar);
-  userInfo.setUserId(res._id);
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([userData, initialCards]) => {
+  userInfo.setUserInfo(userData.name, userData.about);
+  userInfo.setUserAvatar(userData.name, userData.avatar);
+  userInfo.setUserId(userData._id);
+  cardSection.renderItems(initialCards);
 })
 .catch((err) => console.log(`Возникла ошибка: ${err}`));
-
-api.getInitialCards()
-.then((res) => cardSection.renderItems(res))
-.catch((err) => console.log(`Возникла ошибка: ${err}`));
-
-const imagePopup = new PopupWithImage('.popup_type_img');
-
-const deletePopup = new PopupWithConfirmation('.popup_type_delete');
 
 const renderer = (initialCard, isDefault) => {
   const card = new Card(initialCard, '#elements__element', { 
@@ -63,11 +52,19 @@ const renderer = (initialCard, isDefault) => {
     handleLikeClick: (id) => {
       if (!card.isLike) {
         api.addLikeCard(id)
-        .then(() => card.isLike = true)
+        .then((res) => {
+          card.isLike = true;
+          card.addLike();
+          card.elementLikesCount.textContent = res.likes.length;
+        })
         .catch((err) => console.log(`Возникла ошибка: ${err}`));
       } else {
         api.deleteLikeCard(id)
-        .then(() => card.isLike = false)
+        .then((res) => {
+          card.isLike = false;
+          card.deleteLike();
+          card.elementLikesCount.textContent = res.likes.length;
+        })
         .catch((err) => console.log(`Возникла ошибка: ${err}`));
       }
     }
@@ -86,59 +83,54 @@ const renderer = (initialCard, isDefault) => {
   isDefault ? cardSection.addItems(cardElement) : cardSection.addItem(cardElement);
 }
 
+const userInfo = new UserInfo('.profile__name', '.profile__about', '.profile__avatar');
+
 const cardSection = new Section({ renderer }, '.elements__list');
 
+const imagePopup = new PopupWithImage('.popup_type_img');
+
+const deletePopup = new PopupWithConfirmation('.popup_type_delete');
+
 const popupTypeEdit = new PopupWithForm('.popup_type_edit', { submitForm: (inputList) => {
-  userInfo.setUserInfo(inputList.author, inputList.about);
-  popupTypeEdit.renderLoading('Сохранение...');
-  api.editUserInfo(inputList.author, inputList.about)
+  
+  return api.editUserInfo(inputList.author, inputList.about)
+  .then(() => userInfo.setUserInfo(inputList.author, inputList.about))
   .catch((err) => console.log(`Возникла ошибка: ${err}`))
-  .finally(() => popupTypeEdit.close());
+
 } });
 
 const popupTypeAdd = new PopupWithForm('.popup_type_add', { submitForm: (inputList) => {
-  popupTypeAdd.renderLoading('Загрузка...');
-  api.addNewCard(inputList.title, inputList.url)
+
+  cardSection.isDefault = false;
+  return api.addNewCard(inputList.title, inputList.url)
   .then((res) => cardSection.renderItems([res]))
   .catch((err) => console.log(`Возникла ошибка: ${err}`))
-  .finally(() => popupTypeAdd.close());
-  
-  cardSection.isDefault = false;
 
 }});
 
 const popupTypeEditAvatar = new PopupWithForm('.popup_type_edit-avatar', { submitForm: (inputList) => {
-  userInfo.setUserAvatar(inputList.author, inputList.avatar);
-  popupTypeEditAvatar.renderLoading('Сохранение...');
-  api.editUserAvatar(inputList.avatar)
+
+  return api.editUserAvatar(inputList.avatar)
+  .then(() => userInfo.setUserAvatar(inputList.author, inputList.avatar))
   .catch((err) => console.log(`Возникла ошибка: ${err}`))
-  .finally(() => popupTypeEditAvatar.close());
+
 } });
 
 const openPopupEdit = () => {
   popupTypeEdit.open();
   const infoEdit = userInfo.getUserInfo();
-  popupInputTypeName.value = infoEdit.name;
-  popupInputTypeAbout.value = infoEdit.about;
-  formValidationClassInstanceDict.edit.inputListArray.forEach(inputElementPopup => {
-    formValidationClassInstanceDict.edit.hideInputError(inputElementPopup);
-  });
+  popupTypeEdit.setInputValues(infoEdit);
+  formValidationClassInstanceDict.edit.resetValidation();
 }
 
 const openPopupAdd = () => {
   popupTypeAdd.open();
-  formValidationClassInstanceDict.add.toggleButtonState();
-  formValidationClassInstanceDict.add.inputListArray.forEach(inputElementPopup => {
-    formValidationClassInstanceDict.add.hideInputError(inputElementPopup);
-  });
+  formValidationClassInstanceDict.add.resetValidation();
 }
 
 const openPopupEditAvatar = () => {
   popupTypeEditAvatar.open();
-  formValidationClassInstanceDict.editAvatar.toggleButtonState();
-  formValidationClassInstanceDict.editAvatar.inputListArray.forEach(inputElementPopup => {
-    formValidationClassInstanceDict.editAvatar.hideInputError(inputElementPopup);
-  });
+  formValidationClassInstanceDict.editAvatar.resetValidation();
 }
 
 imagePopup.setEventListeners();

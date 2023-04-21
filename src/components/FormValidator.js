@@ -6,6 +6,8 @@ export default class FormValidator {
     this.inputErrorClass = validationConfig.inputErrorClass;
     this.errorClass = validationConfig.errorClass;
     this.formElement = formElement;
+    this.inputListArray = Array.from(this.formElement.querySelectorAll(this.inputSelector));
+    this._buttonElement = this.formElement.querySelector(this.submitButtonSelector);
   }
 
   enableValidation() {
@@ -13,20 +15,17 @@ export default class FormValidator {
   }
 
   _setEventListeners() {
-    this.inputListArray = Array.from(this.formElement.querySelectorAll(this.inputSelector));
-    this._buttonElement = this.formElement.querySelector(this.submitButtonSelector);
-
-    this.toggleButtonState();
+    this._toggleButtonState();
 
     this.inputListArray.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._checkValid(inputElement);
-        this.toggleButtonState();
+        this._toggleButtonState();
       });
     });
   }
 
-  toggleButtonState() {
+  _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this.inactiveButtonClass);
       this._buttonElement.disabled = true;
@@ -40,7 +39,7 @@ export default class FormValidator {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this.hideInputError(inputElement);
+      this._hideInputError(inputElement);
     }
   }
 
@@ -52,12 +51,19 @@ export default class FormValidator {
     errorElement.textContent = errorMessage;
   }
 
-  hideInputError(inputElement) {
+  _hideInputError(inputElement) {
     const errorElement = this.formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.remove(this.inputErrorClass);
     errorElement.classList.remove(this.errorClass);
     errorElement.textContent = '';
+  }
+
+  resetValidation() {
+    this._toggleButtonState();
+    this.inputListArray.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
   }
 
   _hasInvalidInput() {
