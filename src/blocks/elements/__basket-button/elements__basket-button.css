@@ -2,6 +2,8 @@
   position: absolute;
   background-image: url(../../../images/basket.svg);
   background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   border: none;
   top: 20px;
   right: 20px;
