@@ -1,6 +1,7 @@
 .elements__basket-button {
   position: absolute;
   background-image: url(../../../images/basket.svg);
+  background-repeat: no-repeat;
   border: none;
   top: 20px;
   right: 20px;
